@@ -25,14 +25,14 @@ function deleteDupes(gr, hasher) {
     var dupes = new Object();
 
     while (gr.next()) {
-    var key = hasher(gr);
-    if (key in hash) {
-        // if item in the hash, add it to dupes list
-        dupes[key] = gr.sys_id;
-    } else {
-        // else add item to hash
-        hash[key] = gr.sys_id;
-    }
+        var key = hasher(gr);
+        if (key in hash) {
+            // if item in the hash, add it to dupes list
+            dupes[key] = gr.sys_id;
+        } else {
+            // else add item to hash
+            hash[key] = gr.sys_id;
+        }
     }
     return Object.size(dupes);
 }

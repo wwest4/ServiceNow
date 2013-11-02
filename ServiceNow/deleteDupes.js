@@ -20,21 +20,21 @@ function getRecords(table, query) {
 }
 
 function deleteDupes(gr, hasher) {
-	// hasher is an appropriate function for uniqely storing an item
+    // hasher is an appropriate function for uniqely storing an item
     var hash = new Object();
     var dupes = new Object();
 
-	while (gr.next()) {
-		var key = hasher(gr);
-		if (key in hash) {
-			// if item in the hash, add it to dupes list
-			dupes[key] = gr.sys_id;
-		} else {
-			// else add item to hash
-			hash[key] = gr.sys_id;
-		}
-	}
-	return Object.size(dupes);
+    while (gr.next()) {
+    var key = hasher(gr);
+    if (key in hash) {
+        // if item in the hash, add it to dupes list
+        dupes[key] = gr.sys_id;
+    } else {
+        // else add item to hash
+        hash[key] = gr.sys_id;
+    }
+    }
+    return Object.size(dupes);
 }
 
 /** in this example deleting task_time_worked dupes, the hash key will be concatenation of:
@@ -46,14 +46,15 @@ function deleteDupes(gr, hasher) {
  * ...this could miss a few and could overmatch a few, but it's close enough.
  **/ 
 var gr = getRecords('task_time_worked', 
-			"sys_created_on<javascript:gs.dateGenerate('2013-10-30','04:00:00')"
-          + "^sys_created_on>javascript:gs.dateGenerate('2013-09-27','21:00:00')"
-          + "^task.sys_class_name=incident");
+            "sys_created_on<javascript:gs.dateGenerate('2013-10-30','04:00:00')"
+                + "^sys_created_on>javascript:gs.dateGenerate('2013-09-27','21:00:00')"
+                + "^task.sys_class_name=incident");
 gs.print(gr.getRowCount() + ' records in initial query');
 
 var d = deleteDupes(gr, function(r){
-	                    	return r.task 
-	                    	+ ',' + r.time_in_seconds
-	                    	+ ',' + (r.sys_created_on).substring(0, 20);
-	                    });
+                            return r.task 
+                            + ',' + r.time_in_seconds
+                            + ',' + (r.sys_created_on).substring(0, 20);
+                        });
 gs.print(d + ' duplicate records deleted');
+

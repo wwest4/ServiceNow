@@ -46,9 +46,9 @@ function deleteDupes(gr, hasher) {
  * ...this could miss a few and could overmatch a few, but it's close enough.
  **/ 
 var gr = getRecords('task_time_worked', 
-            "sys_created_on<javascript:gs.dateGenerate('2013-10-30','04:00:00')"
-                + "^sys_created_on>javascript:gs.dateGenerate('2013-09-27','21:00:00')"
-                + "^task.sys_class_name=incident");
+                     "sys_created_on<javascript:gs.dateGenerate('2013-10-30','04:00:00')"
+                   + "^sys_created_on>javascript:gs.dateGenerate('2013-09-27','21:00:00')"
+                   + "^task.sys_class_name=incident");
 gs.print(gr.getRowCount() + ' records in initial query');
 
 var d = deleteDupes(gr, function(r){

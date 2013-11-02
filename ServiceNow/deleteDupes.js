@@ -15,8 +15,7 @@ function getRecords(table, query) {
     var gr = new GlideRecord(table);
     gr.addQuery(query);
     gr.query();
-    
-   return gr;
+    return gr;
 }
 
 function deleteDupes(gr, hasher) {
